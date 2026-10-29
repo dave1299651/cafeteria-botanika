@@ -1493,3 +1493,62 @@ h2 em {
     font-size: 16px;
   }
 }
+/* CORRECCIÓN DEL MENÚ PARA CELULARES */
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    position: relative;
+    z-index: 1000;
+  }
+
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1002;
+    cursor: pointer;
+    font-size: 28px;
+    color: #f5f4eb;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 20px 20px;
+    background: #0a100d;
+    border-top: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 12px 20px rgba(0,0,0,.25);
+    z-index: 1001;
+  }
+
+  .nav.open {
+    display: flex !important;
+  }
+
+  .nav a {
+    display: block;
+    padding: 14px 8px;
+    color: #f5f4eb;
+    text-decoration: none;
+  }
+
+  .nav .nav-button {
+    margin-top: 8px;
+    text-align: center;
+  }
+}
