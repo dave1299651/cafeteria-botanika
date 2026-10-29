@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a100d">
+<meta name="description" content="Botanika Coffee House. Café, matcha, bebidas frías y especialidades.">
+<title>Botanika Coffee House | Tu pausa, tu ritual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Formulario de pedido dentro de cada tarjeta */
+.inline-order-toggle {
+  width: 100%;
+  cursor: pointer;
+  font: inherit;
+}
+.inline-order-form {
+  display: grid;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(151,190,137,.35);
+  border-radius: 14px;
+  background: rgba(8,18,12,.96);
+  color: #f5f4eb;
+  text-align: left;
+  min-width: 0;
+}
+.inline-order-form[hidden],
+.inline-delivery-fields[hidden],
+.inline-pickup-fields[hidden] {
+  display: none !important;
+}
+.inline-form-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+.inline-order-form label {
+  display: block;
+  margin-top: 5px;
+  font-size: .85rem;
+  color: #d3dfce;
+}
+.inline-order-form input,
+.inline-order-form select,
+.inline-order-form textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #526752;
+  border-radius: 8px;
+  background: #f7f7f1;
+  color: #172218;
+  font: inherit;
+  font-size: .95rem;
+}
+.inline-order-form textarea {
+  resize: vertical;
+}
+.inline-order-form input:focus,
+.inline-order-form select:focus,
+.inline-order-form textarea:focus {
+  outline: 2px solid #9ac18b;
+  outline-offset: 1px;
+}
+.inline-order-total {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #182b1d;
+  color: #d6efc9;
+  font-weight: 700;
+}
+.send-order-button,
+.inline-location-button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+.send-order-button {
+  background: #8eb47d;
+  color: #102015;
+}
+.inline-location-button {
+  background: #263a2a;
+  color: #f5f4eb;
+  border: 1px solid #526752;
+}
+.send-order-button:hover,
+.inline-location-button:hover {
+  filter: brightness(1.08);
+}
+.inline-location-status,
+.form-hint {
+  font-size: .8rem;
+  line-height: 1.5;
+  opacity: .8;
+  margin: 3px 0;
+}
+.drink-card.order-expanded {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+@media (max-width: 600px) {
+  .inline-order-form { padding: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="brand-logo" href="#inicio">
+    <img src="logo-botanika.jpg" alt="Botanika Coffee House" class="header-logo">
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <nav class="nav" id="mainNav">
+    <a href="#menu">Menú</a>
+    <a href="#favoritos">Especialidades</a>
+    <a href="#nosotros">Nosotros</a>
+    <a class="nav-button" href="https://wa.me/526181848555?text=Hola%20Botanika%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Ordenar ahora ↗</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div><div class="hero-overlay"></div>
+  <div class="hero-content reveal">
+    <p class="eyebrow">CAFÉ · MATCHA · MOMENTOS</p>
+    <h1>Tu pausa.<br><em>Tu ritual.</em></h1>
+    <p class="hero-description">Un sorbo de calma, una dosis de energía y sabores que se quedan contigo.</p>
+    <div class="hero-buttons">
+      <a href="#menu" class="button button-green">Explorar menú ↓</a>
+      <a href="#favoritos" class="text-button">Descubre nuestros favoritos ↗</a>
+    </div>
+    <div class="hero-note"><span class="steam">♨</span><span>HECHO PARA DISFRUTARSE<br><strong>SIN PRISAS.</strong></span></div>
+  </div>
+  <div class="hero-stamp"><span>GOOD COFFEE</span><strong>GOOD<br>MOOD</strong><span>EVERY DAY</span></div>
+  <a class="scroll-cue" href="#nosotros">↓ &nbsp; DESCUBRE BOTANIKA</a>
+</section>
+
+<section class="intro section-wrap reveal" id="nosotros">
+  <span class="eyebrow">MÁS QUE CAFÉ</span>
+  <div><h2>Encuentra tu <em>lado botaniko.</em></h2><p>Desde un espresso que despierta hasta un matcha suave o una bebida fría para cambiar el mood. Elige tu favorito y nosotros ponemos el sabor.</p></div>
+  <div class="intro-symbol">✳</div>
+</section>
+
+<section class="featured" id="favoritos">
+  <div class="featured-photo"></div>
+  <div class="featured-content reveal">
+    <p class="eyebrow">LA CASA RECOMIENDA</p>
+    <h2>Pequeños rituales.<br><em>Grandes antojos.</em></h2>
+    <p>Capas cremosas, sabores inesperados y ese toque botaniko que convierte cualquier día en un buen día.</p>
+    <a href="#menu" class="button button-outline">Descubre el menú ↓</a>
+    <div class="featured-signature">BOTANIKA <small>COFFEE HOUSE</small></div>
+  </div>
+</section>
+
+<section class="menu-section section-wrap" id="menu">
+  <div class="section-heading reveal">
+    <p class="eyebrow centered">HECHO A TU MANERA</p>
+    <h2>El menú <em>Botanika</em></h2>
+    <p>Encuentra tu próximo antojo y pídelo directamente por WhatsApp.</p>
+  </div>
+  <div class="filters" aria-label="Filtrar bebidas">
+    <button class="filter active" data-filter="all">Todo el menú</button>
+    <button class="filter" data-filter="coffee">Café y calientes</button>
+    <button class="filter" data-filter="cold">Bebidas frías</button>
+    <button class="filter" data-filter="matcha">Matcha</button>
+    <button class="filter" data-filter="sweet">Frappes y slushis</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+  <p class="menu-note">Precios en pesos mexicanos. Confirma disponibilidad y personalización de tu bebida al realizar el pedido.</p>
+</section>
+
+<section class="coffee-break">
+  <div class="coffee-break-bg"></div><div class="coffee-break-overlay"></div>
+  <div class="coffee-break-content reveal">
+    <div class="coffee-cup" aria-hidden="true"><div class="steam-lines"><i></i><i></i><i></i></div><div class="cup-shape"><span>B.</span></div></div>
+    <p class="eyebrow">UN BUEN DÍA EMPIEZA AQUÍ</p>
+    <h2>Respira profundo.<br><em>Disfruta el momento.</em></h2>
+    <p>Tu bebida favorita está a un mensaje de distancia.</p>
+    <a class="button button-green" href="https://wa.me/526181848555?text=Hola%20Botanika%2C%20quiero%20consultar%20el%20men%C3%BA" target="_blank" rel="noopener">Escríbenos por WhatsApp ↗</a>
+  </div>
+</section>
+
+<section class="last-call section-wrap reveal">
+  <div><p class="eyebrow">TU SIGUIENTE ANTOJO TE ESPERA</p><h2>¿Qué se te <em>antoja hoy?</em></h2></div>
+  <a class="button button-green" href="https://wa.me/526181848555?text=Hola%20Botanika%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Hacer mi pedido ↗</a>
+</section>
+</main>
+
+<section class="coffee-ending">
+  <div class="coffee-ending-overlay"></div>
+  <div class="coffee-ending-content">
+    <p class="eyebrow">EL AROMA QUE TE HACE VOLVER</p>
+    <h2>Un último sorbo.<br><em>Un nuevo comienzo.</em></h2>
+    <p>Botanika Coffee House · Tu pausa, tu ritual.</p>
+    <a class="button button-green" href="https://wa.me/526181848555?text=Hola%20Botanika%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Disfruta Botanika ↗</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div><div class="footer-monogram">B<span>.</span></div><p>Un espacio para saborear<br>el momento.</p></div>
+    <div class="footer-links"><span class="footer-title">EXPLORA</span><a href="#menu">Nuestro menú</a><a href="#favoritos">Especialidades</a><a href="#nosotros">Nuestra vibra</a></div>
+    <div class="footer-links"><span class="footer-title">ORDENA</span><a href="https://wa.me/526181848555" target="_blank" rel="noopener">WhatsApp: 618 184 8555</a><span>Botanika Coffee House</span></div>
+  </div>
+  <div class="footer-bottom"><span>© <span id="year"></span> Botanika Coffee House</span><span class="footer-motto">SIP SLOW. LIVE GREEN.</span></div>
+  <div class="footer-logo"><img src="logo-botanika.jpg" alt="Logotipo original de Botanika Coffee House"></div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/526181848555?text=Hola%20Botanika%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Hacer pedido por WhatsApp">
+<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.2A12.6 12.6 0 0 0 5.2 22.3L3.5 28.5l6.4-1.7A12.6 12.6 0 1 0 16 3.2Zm0 22.9c-1.9 0-3.8-.5-5.5-1.5l-.4-.2-3.8 1 1-3.7-.2-.4a10.3 10.3 0 1 1 8.9 4.8Zm5.6-7.7c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.1.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5Z"/></svg>
+</a>
+
+<script>
+"use strict";
+const WHATSAPP = "526181848555";
+
+const bebidas = [
+{c:"coffee",g:"Coffee · Basics",n:"Espresso",p:25,d:"Intenso, corto y directo al punto."},
+{c:"coffee",g:"Coffee · Basics",n:"Americano",p:35,d:"Café clásico para cualquier momento."},
+{c:"coffee",g:"Coffee · Basics",n:"Cappuccino",p:60,d:"Espresso con espuma suave de leche."},
+{c:"coffee",g:"Coffee · Basics",n:"Latte",p:60,d:"Suave, cremoso y reconfortante."},
+{c:"coffee",g:"Coffee · Basics",n:"Moka",p:70,d:"Café con un toque de chocolate."},
+{c:"coffee",g:"Coffee · Basics",n:"Dirty Chai",p:70,d:"Chai especiado con espresso."},
+{c:"coffee",g:"Not Coffee",n:"Chai Original",p:65,d:"Especias aromáticas y sabor envolvente."},
+{c:"coffee",g:"Not Coffee",n:"Chai Vainilla",p:65,d:"Chai con un toque dulce de vainilla."},
+{c:"matcha",g:"Not Coffee",n:"Matcha",p:65,d:"Sabor vegetal, suave y especial."},
+{c:"matcha",g:"Not Coffee",n:"Chai Matcha",p:70,d:"El encuentro del chai y el matcha."},
+{c:"coffee",g:"Not Coffee",n:"Taro",p:65,d:"Dulce, cremoso y con personalidad."},
+{c:"coffee",g:"Not Coffee",n:"Chocolate",p:65,d:"Un clásico para disfrutar despacio."},
+{c:"coffee",g:"Not Coffee",n:"Italiano",p:65,d:"Una opción especial para variar."},
+{c:"coffee",g:"Not Coffee",n:"Choco Avellana",p:65,d:"Chocolate y avellana en una bebida."},
+{c:"coffee",g:"Not Coffee",n:"Tisana Frutos Rojos",p:55,d:"Frutal, aromática y reconfortante."},
+{c:"cold",g:"Colds · Especialidades",n:"Caramel Macchiato",p:90,d:"Caramelo, leche de almendra, espresso y cold foam.",f:true},
+{c:"cold",g:"Colds · Especialidades",n:"HorchaLatte",p:85,d:"Horchata, nuez, espresso y cold foam con canela."},
+{c:"cold",g:"Colds · Especialidades",n:"Lotus Latte",p:90,d:"Crema Biscoff, leche, espresso, cold foam y Lotus.",f:true},
+{c:"cold",g:"Colds · Especialidades",n:"Crème Brûlée Latte",p:85,d:"Vainilla, avellana, espresso y espuma caramelizada."},
+{c:"cold",g:"Colds · Especialidades",n:"Black Pink Latte",p:90,d:"Fresas con crema, espresso, carbón activado y cold foam."},
+{c:"coffee",g:"Colds · Especialidades",n:"Affogato Capuccino",p:100,d:"Leche, crema irlandesa, espresso y nieve de vainilla.",f:true},
+{c:"matcha",g:"Matcha Lovers",n:"Sakura",p:95,d:"Fresas, leche, vainilla y fluffy matcha."},
+{c:"matcha",g:"Matcha Lovers",n:"Haru",p:95,d:"Mango, leche, vainilla y fluffy matcha."},
+{c:"matcha",g:"Matcha Lovers",n:"Nami",p:95,d:"Crema de coco, leche, fluffy matcha y coco rallado."},
+{c:"matcha",g:"Matcha Lovers",n:"Midori",p:95,d:"Banana, lechera, leche y fluffy matcha."},
+{c:"matcha",g:"Matcha Lovers",n:"Cloud Matcha",p:95,d:"Vainilla, butterfly pea, leche y fluffy matcha."},
+{c:"matcha",g:"Matcha Lovers",n:"Butterfly Latte",p:90,d:"Taro, leche y fluffy matcha."},
+{c:"matcha",g:"Matcha Lovers",n:"Cherry Cheesecake",p:90,d:"Cereza, leche cheesecake, espresso o matcha y foam rosa."},
+{c:"cold",g:"Refreshers",n:"Mango Dragonfruit",p:80,d:"Refrescante mezcla frutal."},
+{c:"cold",g:"Refreshers",n:"Pink Lemonade",p:65,d:"Limonada con un toque rosa."},
+{c:"cold",g:"Refreshers",n:"Berry Lemonade",p:65,d:"Limonada con frutos rojos."},
+{c:"cold",g:"Sodas Italianas",n:"Soda Italiana Fresa",p:70,d:"Burbujeante y frutal."},
+{c:"cold",g:"Sodas Italianas",n:"Soda Italiana Blueberry",p:70,d:"Arándano con burbujas refrescantes."},
+{c:"cold",g:"Sodas Italianas",n:"Soda Italiana Cereza",p:70,d:"Un toque de cereza y frescura."},
+{c:"cold",g:"Sodas Italianas",n:"Soda Italiana Kiwi",p:70,d:"Kiwi en una bebida chispeante."},
+{c:"sweet",g:"Frappes",n:"Frappé Cheesecake",p:85,d:"Cremoso sabor cheesecake."},
+{c:"sweet",g:"Frappes",n:"Frappé Mazapán",p:85,d:"Dulce sabor a mazapán."},
+{c:"sweet",g:"Frappes",n:"Frappé Nutella",p:85,d:"Chocolate y avellana."},
+{c:"sweet",g:"Frappes",n:"Frappé Fresas con Crema",p:85,d:"Fresas con un toque cremoso."},
+{c:"sweet",g:"Frappes",n:"Frappé Vainilla",p:85,d:"Suave, dulce y clásico."},
+{c:"sweet",g:"Frappes",n:"Frappé Oreo",p:85,d:"Galleta y crema."},
+{c:"sweet",g:"Frappes",n:"Frappé Kinder Delice",p:85,d:"Sabor chocolatoso y cremoso."},
+{c:"sweet",g:"Frappes",n:"Frappé Lotus Biscoff",p:85,d:"Crema de galleta especiada."},
+{c:"sweet",g:"Frappes",n:"Frappé Frappuccino",p:85,d:"Un antojo frío de la casa."},
+{c:"sweet",g:"Frappes",n:"Frappé Choco Menta",p:85,d:"Chocolate con frescura de menta."},
+{c:"sweet",g:"Frappes",n:"Frappé Caramelo",p:85,d:"Dulce caramelo y café."},
+{c:"sweet",g:"Slushi",n:"Mango Eléctrico",p:85,d:"Mango con un giro intenso."},
+{c:"sweet",g:"Slushi",n:"Fresa Enchilada",p:85,d:"Fresa con un toque picosito."},
+{c:"sweet",g:"Slushi",n:"Dragonfruit",p:85,d:"Frutal, frío y colorido."}
+];
+
+const menuGrid = document.getElementById("menuGrid");
+let productoAbierto = null;
+let revealObserver = null;
+
+function observeReveals() {
+  const elements = document.querySelectorAll(".reveal:not(.is-visible), .drink-card:not(.is-visible)");
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach(el => el.classList.add("is-visible"));
+    return;
+  }
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.08});
+  }
+  elements.forEach(el => revealObserver.observe(el));
+}
+
+function renderMenu(filter = "all") {
+  const list = bebidas.map((b, index) => ({...b, index}))
+    .filter(b => filter === "all" || b.c === filter);
+
+  menuGrid.innerHTML = list.map(b => {
+    const icon = {coffee:"☕",cold:"🧊",matcha:"🍵",sweet:"🥤"}[b.c] || "☕";
+    const open = productoAbierto === b.index;
+
+    return `<article class="drink-card ${b.f ? "drink-featured" : ""} ${open ? "order-expanded" : ""}">
+      <span class="drink-icon" aria-hidden="true">${icon}</span>
+      <div class="drink-top"><span class="drink-group">${b.g}</span><span class="drink-price">$${b.p}</span></div>
+      <h3>${b.n}</h3><p>${b.d}</p>
+      <button type="button" class="order-link inline-order-toggle" data-product="${b.index}" aria-expanded="${open}">${open ? "Cerrar opciones" : "Elegir y personalizar"} <span>${open ? "−" : "+"}</span></button>
+      ${open ? `<form class="inline-order-form" data-order-form="${b.index}">
+        <p class="inline-form-title">Personaliza tu ${b.n}</p>
+        <label for="qty-${b.index}">Cantidad</label><input id="qty-${b.index}" name="quantity" type="number" min="1" max="20" value="1" required>
+        <label for="extra-${b.index}">Agregar otra bebida (opcional)</label>
+        <select id="extra-${b.index}" name="extra"><option value="">Sin bebida adicional</option>${bebidas.map((x,i)=>`<option value="${i}">${x.n} — $${x.p}</option>`).join("")}</select>
+        <label for="extraQty-${b.index}">Cantidad adicional</label><input id="extraQty-${b.index}" name="extraQuantity" type="number" min="1" max="20" value="1" disabled>
+        <label for="dessert-${b.index}">Postre (opcional)</label><input id="dessert-${b.index}" name="dessert" type="text" maxlength="100" placeholder="¿Qué postre se te antoja?">
+        <label for="notes-${b.index}">Personalización o indicaciones</label><textarea id="notes-${b.index}" name="notes" rows="2" maxlength="250" placeholder="Ej. sin azúcar, leche deslactosada..."></textarea>
+        <label for="delivery-${b.index}">¿Cómo recibirás tu pedido?</label>
+        <select id="delivery-${b.index}" name="delivery" required><option value="Recoger en el establecimiento">Recoger en el establecimiento</option><option value="Entrega a domicilio">Entrega a domicilio</option></select>
+        <div class="inline-pickup-fields"><label for="time-${b.index}">¿En cuánto tiempo pasarás?</label><select id="time-${b.index}" name="pickupTime"><option>En 10 minutos</option><option>En 15 minutos</option><option>En 30 minutos</option><option>En 1 hora</option></select></div>
+        <div class="inline-delivery-fields" hidden>
+          <label for="phone-${b.index}">Teléfono de contacto</label><input id="phone-${b.index}" name="phone" type="tel" maxlength="20" placeholder="Tu número de teléfono">
+          <label for="address-${b.index}">Dirección de entrega</label><textarea id="address-${b.index}" name="address" rows="2" maxlength="300" placeholder="Calle, número, colonia y referencias"></textarea>
+          <button type="button" class="inline-location-button">Compartir mi ubicación</button><p class="inline-location-status" aria-live="polite"></p>
+        </div>
+        <label for="name-${b.index}">Tu nombre</label><input id="name-${b.index}" name="customerName" type="text" maxlength="100" autocomplete="name" required placeholder="Nombre de quien realiza el pedido">
+        <div class="inline-order-total" aria-live="polite">Total estimado: $${b.p}</div>
+        <button type="submit" class="send-order-button">Enviar pedido por WhatsApp ↗</button>
+        <p class="form-hint">El envío y los postres se confirman directamente con Botanika.</p>
+      </form>` : ""}
+    </article>`;
+  }).join("");
+  observeReveals();
+}
+
+function updateTotal(form) {
+  const index = Number(form.dataset.orderForm);
+  const quantity = Math.max(1, Math.min(20, Number(form.elements.namedItem("quantity").value) || 1));
+  const extraIndex = form.elements.namedItem("extra").value;
+  const extraQuantity = Math.max(1, Math.min(20, Number(form.elements.namedItem("extraQuantity").value) || 1));
+  let total = bebidas[index].p * quantity;
+  if (extraIndex !== "") total += bebidas[Number(extraIndex)].p * extraQuantity;
+  form.querySelector(".inline-order-total").textContent = `Total estimado: $${total}`;
+}
+
+menuGrid.addEventListener("click", event => {
+  const toggle = event.target.closest(".inline-order-toggle");
+  if (toggle) {
+    const index = Number(toggle.dataset.product);
+    productoAbierto = productoAbierto === index ? null : index;
+    renderMenu(document.querySelector(".filter.active")?.dataset.filter || "all");
+    return;
+  }
+
+  const locationButton = event.target.closest(".inline-location-button");
+  if (!locationButton) return;
+  const form = locationButton.closest(".inline-order-form");
+  const status = form.querySelector(".inline-location-status");
+  const address = form.elements.namedItem("address");
+
+  if (!navigator.geolocation) {
+    status.textContent = "Tu navegador no permite compartir ubicación.";
+    return;
+  }
+  status.textContent = "Obteniendo ubicación...";
+  navigator.geolocation.getCurrentPosition(position => {
+    address.value = `Ubicación GPS: https://maps.google.com/?q=${position.coords.latitude},${position.coords.longitude}`;
+    status.textContent = "Ubicación agregada al pedido.";
+  }, () => {
+    status.textContent = "No se pudo obtener la ubicación. Escribe tu dirección.";
+  }, {enableHighAccuracy:true, timeout:10000});
+});
+
+menuGrid.addEventListener("change", event => {
+  const form = event.target.closest(".inline-order-form");
+  if (!form) return;
+  const isHome = form.elements.namedItem("delivery").value === "Entrega a domicilio";
+  form.querySelector(".inline-pickup-fields").hidden = isHome;
+  form.querySelector(".inline-delivery-fields").hidden = !isHome;
+  form.elements.namedItem("phone").required = isHome;
+  form.elements.namedItem("address").required = isHome;
+  const extra = form.elements.namedItem("extra");
+  form.elements.namedItem("extraQuantity").disabled = !extra.value;
+  updateTotal(form);
+});
+
+menuGrid.addEventListener("input", event => {
+  const form = event.target.closest(".inline-order-form");
+  if (form) updateTotal(form);
+});
+
+menuGrid.addEventListener("submit", event => {
+  const form = event.target.closest(".inline-order-form");
+  if (!form) return;
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+
+  const index = Number(form.dataset.orderForm);
+  const drink = bebidas[index];
+  const quantity = Number(form.elements.namedItem("quantity").value);
+  const extraIndex = form.elements.namedItem("extra").value;
+  const extraQuantity = Number(form.elements.namedItem("extraQuantity").value) || 1;
+  const delivery = form.elements.namedItem("delivery").value;
+  const customerName = form.elements.namedItem("customerName").value.trim();
+  const phone = form.elements.namedItem("phone").value.trim();
+  const address = form.elements.namedItem("address").value.trim();
+
+  let total = drink.p * quantity;
+  let message = `Hola Botanika Coffee House, quiero realizar este pedido:\n\nProducto: ${drink.n}\nCantidad: ${quantity}\nPrecio: $${drink.p * quantity}\n`;
+
+  if (extraIndex !== "") {
+    const extra = bebidas[Number(extraIndex)];
+    total += extra.p * extraQuantity;
+    message += `\nAdicional: ${extra.n}\nCantidad adicional: ${extraQuantity}\nSubtotal adicional: $${extra.p * extraQuantity}\n`;
+  }
+  const dessert = form.elements.namedItem("dessert").value.trim();
+  const notes = form.elements.namedItem("notes").value.trim();
+  if (dessert) message += `\nPostre solicitado: ${dessert} (precio por confirmar)\n`;
+  if (notes) message += `Indicaciones: ${notes}\n`;
+
+  message += `\nEntrega: ${delivery}\n`;
+  if (delivery === "Recoger en el establecimiento") {
+    message += `Tiempo para recoger: ${form.elements.namedItem("pickupTime").value}\n`;
+  } else {
+    message += `Teléfono: ${phone}\nDirección o ubicación: ${address}\n`;
+  }
+  message += `\nNombre: ${customerName}\nTotal estimado de bebidas: $${total}\n\nPor favor, confirmen disponibilidad y costo de envío/postre.`;
+  window.location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+});
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    productoAbierto = null;
+    renderMenu(button.dataset.filter);
+  });
+});
+
+const menuToggle = document.getElementById("menuToggle");
+const mainNav = document.getElementById("mainNav");
+menuToggle.addEventListener("click", () => {
+  const open = mainNav.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(open));
+});
+mainNav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+  mainNav.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+}));
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderMenu();
+observeReveals();
+</script>
+</body>
+</html>
